@@ -59,6 +59,7 @@ const messages = {
       recipient: 1424423579000,
       currentUser: 1424423574000,
     },
+    
     messages: [
       {
         contents: 'Please follow me on twitter I\'ll pay you',
