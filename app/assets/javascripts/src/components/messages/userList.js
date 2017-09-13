@@ -1,5 +1,5 @@
 import React from 'react'
-import _ from 'lodash' 
+import _ from 'lodash'
 import classNames from 'classnames'
 import Utils from '../../utils'
 import MessagesStore from '../../stores/messages'
@@ -86,7 +86,7 @@ class UserList extends React.Component {
 
       return (
         <li
-        onClick={ this.changeOpenChat.bind(this, message.user.id) } 
+        onClick={ this.changeOpenChat.bind(this, message.user.id) }
           className={ itemClasses }
           key={ message.user.id }
         >

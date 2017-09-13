@@ -59,7 +59,7 @@ const messages = {
       recipient: 1424423579000,
       currentUser: 1424423574000,
     },
-    
+
     messages: [
       {
         contents: 'Please follow me on twitter I\'ll pay you',
@@ -95,12 +95,12 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
   const action = payload.action
 
   switch (action.type) {
-        case 'updateOpenChatID':
+    case 'updateOpenChatID':
       openChatID = action.userID
       messages[openChatID].lastAccess.currentUser = +new Date()
       MessagesStore.emitChange()
       break
-         case 'sendMessage':
+    case 'sendMessage':
       const userID = action.userID
       messages[userID].messages.push({
         contents: action.message,
