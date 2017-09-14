@@ -2,6 +2,7 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
 import UserStore from '../stores/user'
+import {ActionTypes} from '../constants/app'
 
 const messages = {
   2: {
@@ -88,6 +89,13 @@ class ChatStore extends BaseStore {
   getAllChats() {
     return messages
   }
+  setMessages(messages) {
+    return this.set('messages', messages)
+  }
+  getMessages() {
+    if (!this.get('messages')) this.setMessages([])
+    return this.get('messages')
+  }
 }
 const MessagesStore = new ChatStore()
 
@@ -108,6 +116,10 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
         from: UserStore.user.id,
       })
       messages[userID].lastAccess.currentUser = +new Date()
+      MessagesStore.emitChange()
+      break
+    case ActionTypes.GET_MESSAGE:
+      MessagesStore.setMessages(action.json.messages)
       MessagesStore.emitChange()
       break
   }

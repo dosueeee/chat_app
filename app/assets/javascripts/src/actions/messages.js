@@ -20,7 +20,7 @@ export default {
   getMessage() {
     return new Promise((resolve, reject) => {
       request
-      .get('/api/message')
+      .get('/api/messages')
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
