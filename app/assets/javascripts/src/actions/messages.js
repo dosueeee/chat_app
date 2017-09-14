@@ -1,4 +1,4 @@
-// actions/messages.js
+import request from 'superagent'
 import Dispatcher from '../dispatcher'
 import {ActionTypes} from '../constants/app'
 
