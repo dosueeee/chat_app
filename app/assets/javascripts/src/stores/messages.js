@@ -108,22 +108,26 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       messages[openChatID].lastAccess.currentUser = +new Date()
       MessagesStore.emitChange()
       break
-    case 'sendMessage':
-      const userID = action.userID
-      messages[userID].messages.push({
-        contents: action.message,
-        timestamp: action.timestamp,
-        from: UserStore.user.id,
-      })
-      messages[userID].lastAccess.currentUser = +new Date()
-      MessagesStore.emitChange()
-      break
+    case 'sendMessage': {
+        const userID = action.userID
+        messages[userID].messages.push({
+          contents: action.message,
+          timestamp: action.timestamp,
+          from: UserStore.user.id,
+        })
+        messages[userID].lastAccess.currentUser = +new Date()
+        MessagesStore.emitChange()
+        break
+      }
     case ActionTypes.GET_MESSAGE:
-      MessagesStore.setMessages(action.json.messages)
+        messages[2].messages.push({
+        contents: action.json[1].contents,
+        timestamp: action.timestamp,
+        from: action.json[1].from,
+      })
       MessagesStore.emitChange()
       break
   }
-
   return true
 })
 
