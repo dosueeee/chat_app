@@ -13,7 +13,7 @@ export default class MessageRouter extends BaseRouter {
     next()
   }
   loadMessages(ctx, next) {
-  	    MessagesAction.getMessage()
-  	    next()
+    MessagesAction.getMessage()
+    next()
   }
 }

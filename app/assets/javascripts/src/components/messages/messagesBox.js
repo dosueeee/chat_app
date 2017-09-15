@@ -2,8 +2,8 @@ import React from 'react'
 import classNames from 'classNames'
 import MessagesStore from '../../stores/messages'
 import ReplyBox from '../../components/messages/replyBox'
-import UserStore from '../../stores/user'
-import Utils from '../../utils'
+// import UserStore from '../../stores/user'
+// import Utils from '../../utils'
 
 class MessagesBox extends React.Component {
 
@@ -15,7 +15,7 @@ class MessagesBox extends React.Component {
     return this.getStateFromStore()
   }
   getStateFromStore() {
-    // return MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID())
+    return MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID())
     return {messages: MessagesStore.getMessages()}
   }
   componentWillMount() {
@@ -28,7 +28,7 @@ class MessagesBox extends React.Component {
     this.setState(this.getStateFromStore())
   }
   render() {
-    const messagesLength = this.state.messages.length
+    // const messagesLength = this.state.messages.length
     const currentUserID = 1
 
     const messages = this.state.messages.map((message, index) => {
@@ -47,8 +47,7 @@ class MessagesBox extends React.Component {
         )
     })
 
-    const lastMessage = this.state.messages[messagesLength - 1]
-
+    // const lastMessage = this.state.messages[messagesLength - 1]
 
     // if (lastMessage.from === currentUserID) {
     //   if (this.state.lastAccess.recipient >= lastMessage.timestamp) {
