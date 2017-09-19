@@ -1,11 +1,29 @@
 !!! 5
 %html
   %head
-    %title flux_tutorial
+    %title ChatApp
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     %link{ href: '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', rel: 'stylesheet' }/
     = javascript_include_tag 'application'
     = javascript_include_tag '/assets/javascripts/boot.js'
     = csrf_meta_tags
+    %nav.navbar.navbar-default
+  .container-fluid
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        - if user_signed_in?
+          %li
+            %a{:href => "/"} ChatApp
+          %li
+            %a{:href => "/users/search"} ユーザーを探す
+          %li
+            %a{:href => "/users/:id"} マイページ
+          %li
+            %a{:href => "/users/sign_out"} ログアウト
+        - else 
+          %li
+            %a{:href => "/users/sign_in"} ログイン
+
   %body
+    
     = yield
