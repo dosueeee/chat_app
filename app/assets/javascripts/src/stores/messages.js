@@ -3,6 +3,7 @@ import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
 import UserStore from '../stores/user'
 import {ActionTypes} from '../constants/app'
+import MessagesAction from '../actions/messages'
 
 const messages = {
   2: {
@@ -19,12 +20,14 @@ const messages = {
     messages: [
       {
         contents: 'Hey!',
-        from: 2,
+        from_user_id: 2 ,
+        // to_user_id: 1
         timestamp: 1424469793023,
       },
       {
         contents: 'Hey, what\'s up?',
-        from: 1,
+        from_user_id: 1,
+        // to_user_id: 2
         timestamp: 1424469794000,
       },
     ],
@@ -44,7 +47,8 @@ const messages = {
     messages: [
       {
         contents: 'Want a game of ping pong?',
-        from: 3,
+        from_user_id: 3,
+        // to_user_id: 1
         timestamp: 1424352522000,
       },
     ],
@@ -65,7 +69,8 @@ const messages = {
       {
         contents: 'Please follow me on twitter I\'ll pay you',
         timestamp: 1424423579000,
-        from: 4,
+        from_user_id: 4,
+        // to_user_id: 1
       },
     ],
   },
@@ -89,19 +94,19 @@ class ChatStore extends BaseStore {
   getAllChats() {
     return messages
   }
-  setMessages(messages) {
-    return this.set('messages', messages)
-  }
   getMessages() {
     if (!this.get('messages')) this.setMessages([])
     return this.get('messages')
+  }
+  setMessages(messages) {
+    return this.set('messages', messages)
   }
 }
 const MessagesStore = new ChatStore()
 
 MessagesStore.dispatchToken = Dispatcher.register(payload => {
   const action = payload.action
-
+  
   switch (action.type) {
     case 'updateOpenChatID':
       openChatID = action.userID
@@ -118,11 +123,14 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
         break
       }
     case ActionTypes.GET_MESSAGE:
-        messages[2].messages.push({
-        contents: action.json[1].contents,
+      messages[2].messages.push({
+        contents: action.json[0].contents, //action.json[]内に指定したidのcontentsが表示される
         timestamp: action.timestamp,
-        from: action.json[1].from,
+        from_user_id: action.json[1].from_user_id,
+        to_user_id: action.json[1].to_user_id,
       })
+      // messages[2].messages.push(
+      //   MessagesStore.setMessages(action.json))
       MessagesStore.emitChange()
       break
   }

@@ -30,7 +30,7 @@ export default {
       .set('X-CSRF-Token', CSRFToken())
       .send({
         contents: message,
-        from: 1,
+        from_user_id: 1,
       })
       .end((error, res) => {
         if (!error && res.status === 200 ) {
@@ -43,7 +43,7 @@ export default {
       })
     })
   },
-  getMessage() {
+  getMessages() {
     return new Promise((resolve, reject) => {
       request
       .get('/api/messages')

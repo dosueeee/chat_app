@@ -9,7 +9,6 @@ const appDispatcher = assign(new Dispatcher(), {
       action: action,
     })
   },
-
   handleViewAction(action) {
     this.dispatch({
       source: 'view',

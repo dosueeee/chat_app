@@ -4,6 +4,7 @@ export const ActionTypes = keyMirror({
   UPDATE_OPEN_CHAT_ID: null,
   SEND_MESSAGE: null,
   POST_MESSAGE: null,
+  GET_MESSAGE: null,
 })
 
 export function CSRFToken() {

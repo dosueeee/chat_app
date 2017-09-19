@@ -4,4 +4,7 @@ Rails.application.routes.draw do
     resources :contents
   end
   root 'messages#index'
+
+  devise_for :users
+
 end
