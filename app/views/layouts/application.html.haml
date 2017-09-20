@@ -17,7 +17,13 @@
           %li
             %a{:href => "/users/search"} ユーザーを探す
           %li
-            %a{:href => "/users/:id"} マイページ
+            / - current_user = User.find_by(id: session[:user_id]) 
+            %a id :
+            = current_user.id
+          %li
+            %a{:href => "/users/#{current_user.id}"} マイページ
+          %li
+            %a{:href => "/users/edit"} 登録情報編集
           %li
             %a{:href => "/users/sign_out"} ログアウト
         - else 
