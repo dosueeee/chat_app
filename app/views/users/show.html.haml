@@ -1,4 +1,7 @@
 .field
   %br
-    = @user.email
-    = @user.name
+    = current_user.email
+  %br
+    = "名前↓"
+  %h1
+    = current_user.name

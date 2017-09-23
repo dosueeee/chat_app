@@ -5,6 +5,7 @@ export const ActionTypes = keyMirror({
   SEND_MESSAGE: null,
   POST_MESSAGE: null,
   GET_MESSAGE: null,
+  SEARCH_USERS: null,
 })
 
 export function CSRFToken() {
@@ -16,4 +17,5 @@ const APIRoot = `${Root}/api`
 export const APIEndpoints = {
   MESSAGE: APIRoot,
   SEND_MESSAGE: APIRoot + '/messages',
+  SEARCH_USERS: APIRoot + '/users/search',
 }

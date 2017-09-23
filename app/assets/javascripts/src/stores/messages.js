@@ -3,7 +3,6 @@ import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
 import UserStore from '../stores/user'
 import {ActionTypes} from '../constants/app'
-import MessagesAction from '../actions/messages'
 
 const messages = {
   2: {
@@ -20,14 +19,14 @@ const messages = {
     messages: [
       {
         contents: 'Hey!',
-        from_user_id: 2 ,
-        // to_user_id: 1
+        from_user_id: 2,
+        // to_user_id: 1,
         timestamp: 1424469793023,
       },
       {
         contents: 'Hey, what\'s up?',
         from_user_id: 1,
-        // to_user_id: 2
+        // to_user_id: 2,
         timestamp: 1424469794000,
       },
     ],
@@ -117,14 +116,14 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
         messages[2].messages.push({
           contents: action.message,
           timestamp: action.timestamp,
-          from: UserStore.user.id,
+          from: 1
         })
         MessagesStore.emitChange()
         break
       }
     case ActionTypes.GET_MESSAGE:
       messages[2].messages.push({
-        contents: action.json[0].contents, //action.json[]内に指定したidのcontentsが表示される
+        contents: action.json[0].contents, // action.json[]内に指定したidのcontentsが表示される
         timestamp: action.timestamp,
         from_user_id: action.json[1].from_user_id,
         to_user_id: action.json[1].to_user_id,
