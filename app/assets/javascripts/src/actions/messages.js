@@ -19,11 +19,11 @@ export default {
   // },
   sendMessage(userID, message) {
     Dispatcher.handleViewAction({
-            type: ActionTypes.POST_MESSAGE,
-            userID: userID,
-            message: message,
-            timestamp: +new Date(),
-          })
+      type: ActionTypes.POST_MESSAGE,
+      userID: userID,
+      message: message,
+      timestamp: +new Date(),
+    })
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.SEND_MESSAGE}`)

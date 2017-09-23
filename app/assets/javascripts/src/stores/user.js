@@ -1,28 +1,40 @@
-const UserStore = {
-  user: {
-    id: 1,
-    name: 'John Doek',
-    profilePicture: 'https://avatars1.githubusercontent.com/u/8901351?v=3&s=200',
-  },
-  // user: {
-  //   profilePicture: 'https://avatars0.githubusercontent.com/u/7922109?v=3&s=460',
-  //   id: 2,
-  //   name: 'Ryan Clark',
-  //   status: 'online',
-  // },
-  // user: {
-  //   read: true,
-  //   profilePicture: 'https://avatars3.githubusercontent.com/u/2955483?v=3&s=460',
-  //   name: 'Jilles Soeters',
-  //   id: 3,
-  //   status: 'online',
-  // },
-  // user: {
-  //   name: 'Todd Motto',
-  //   id: 4,
-  //   profilePicture: 'https://avatars1.githubusercontent.com/u/1655968?v=3&s=460',
-  //   status: 'online',
-  // },
+import Dispatcher from '../dispatcher'
+import BaseStore from '../base/store'
+import {ActionTypes} from '../constants/app'
+import _ from 'lodash'
+
+// const UserStore = {
+//   user: {
+//     id: 1,
+//     name: 'John Doek',
+//     profilePicture: 'https://avatars1.githubusercontent.com/u/8901351?v=3&s=200',
+//   },
+// }
+
+class UserStore extends BaseStore {
+  getUsers() {
+    if (!this.get('users')) this.setUsers([])
+    return this.get('users')
+  }
+  setUsers(json) {
+    this.set('users', json)
+  }
 }
 
-export default UserStore
+const User = new UserStore()
+
+User.dispatchToken = Dispatcher.register(payload => {
+  const action = payload.action
+
+  switch (action.type) {
+    case ActionTypes.SEARCH_USERS:
+      var hoge = action.json
+      var hoge2 = _.map(hoge, 'name')
+      User.setUsers(hoge2)
+      User.emitChange()
+      break
+  }
+  return true
+})
+
+export default User
