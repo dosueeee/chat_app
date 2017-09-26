@@ -1,8 +1,9 @@
 // stores/messages.js
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
-import UserStore from '../stores/user'
+// import UserStore from '../stores/user'
 import {ActionTypes} from '../constants/app'
+import MessagesAction from '../actions/messages'
 
 const messages = {
   2: {
@@ -75,6 +76,8 @@ const messages = {
   },
 }
 
+// const messages = MessagesAction.getMessages.json
+
 var openChatID = parseInt(Object.keys(messages)[0], 10)
 
 class ChatStore extends BaseStore {
@@ -93,10 +96,10 @@ class ChatStore extends BaseStore {
   getAllChats() {
     return messages
   }
-  getMessages() {
-    if (!this.get('messages')) this.setMessages([])
-    return this.get('messages')
-  }
+  // getMessages() {
+  //   if (!this.get('messages')) this.setMessages([])
+  //   return this.get('messages')
+  // }
   setMessages(messages) {
     return this.set('messages', messages)
   }
@@ -116,7 +119,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
         messages[2].messages.push({
           contents: action.message,
           timestamp: action.timestamp,
-          from: 1
+          from: 1,
         })
         MessagesStore.emitChange()
         break
@@ -132,7 +135,11 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       //   MessagesStore.setMessages(action.json))
       MessagesStore.emitChange()
       break
-  }
+    }
+    // case ActionTypes.GET_MESSAGE:
+    // {
+    //   const messages = CurrentUserStore
+    // }
   return true
 })
 
