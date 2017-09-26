@@ -37,9 +37,14 @@ class User < ApplicationRecord
     end
   end
 
+  def friends_all
+    friends_to_user + friends_from_user
+  end
+
   def friend?(user)
   	self.from_friend?(user) || self.to_friend?(user)
   end
+
   def from_friend?(user)
     friends_from_user.include?(user)
   end
