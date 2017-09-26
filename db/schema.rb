@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170924040547) do
+ActiveRecord::Schema.define(version: 20170926093243) do
+
+  create_table "accesses", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "to_user_id"
+    t.datetime "last_access"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "friendships", force: :cascade do |t|
     t.integer  "from_user_id"
@@ -25,6 +33,7 @@ ActiveRecord::Schema.define(version: 20170924040547) do
     t.datetime "updated_at",   null: false
     t.integer  "from_user_id"
     t.integer  "to_user_id"
+    t.integer  "user_id"
   end
 
   create_table "users", force: :cascade do |t|

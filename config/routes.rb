@@ -12,8 +12,16 @@ Rails.application.routes.draw do
   
   root 'messages#index'
   resources :friendships, only: [:create, :destroy]
-  devise_for :users
-  # resources :users
+
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    confirmations: 'users/confirmations',
+    omniauth: 'users/omniauth',
+    passwords: 'users/passwords',
+    sessions: 'users/sessions',
+    unlocks: 'users/unlocks',
+  }
+  
   get "users/search" => "users#search"
   get "users/:id" => "users#show"
 end

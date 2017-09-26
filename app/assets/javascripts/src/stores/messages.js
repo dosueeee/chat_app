@@ -1,7 +1,7 @@
 // stores/messages.js
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
-// import UserStore from '../stores/user'
+import UserStore from '../stores/user'
 import {ActionTypes} from '../constants/app'
 import MessagesAction from '../actions/messages'
 
@@ -80,28 +80,46 @@ const messages = {
 
 var openChatID = parseInt(Object.keys(messages)[0], 10)
 
+let openChatId = parseInt(Object.keys(UserStore.getUsers())[0], 10)
+
 class ChatStore extends BaseStore {
   addChangeListener(callback) {
     this.on('change', callback)
   }
+
   removeChangeListener(callback) {
     this.off('change', callback)
   }
-  getOpenChatUserID() {
-    return openChatID
+
+  // getOpenChatUserID() {
+  //   return openChatID
+  // }
+
+  getOpenChatUserId() {
+    const users = UserStore.getUsers()
+    if (Number.isNaN(openChatId) && users.length !== 0) {
+      openChatId = users[0].id
+      MessagesAction.getMessages(openChatId)
+    }
+    return openChatId
   }
+
   getChatByUserID(id) {
     return messages[id]
   }
+
   getAllChats() {
     return messages
   }
-  // getMessages() {
-  //   if (!this.get('messages')) this.setMessages([])
-  //   return this.get('messages')
-  // }
+
+  getMessages() {
+    if (!this.get('messages')) this.setMessages([])
+    return this.get('messages')
+  }
+
   setMessages(messages) {
-    return this.set('messages', messages)
+    // return this.set('messages', messages)
+    this.set('messages', messages)
   }
 }
 const MessagesStore = new ChatStore()
@@ -124,22 +142,24 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
         MessagesStore.emitChange()
         break
       }
+    // case ActionTypes.GET_MESSAGE:
+    //   messages[2].messages.push({
+    //     contents: action.json[0].contents, // action.json[]内に指定したidのcontentsが表示される
+    //     timestamp: action.timestamp,
+    //     from_user_id: action.json[1].from_user_id,
+    //     to_user_id: action.json[1].to_user_id,
+    //   })
+    //   // messages[2].messages.push(
+    //   //   MessagesStore.setMessages(action.json))
+    //   MessagesStore.emitChange()
+    //   break
+    
     case ActionTypes.GET_MESSAGE:
-      messages[2].messages.push({
-        contents: action.json[0].contents, // action.json[]内に指定したidのcontentsが表示される
-        timestamp: action.timestamp,
-        from_user_id: action.json[1].from_user_id,
-        to_user_id: action.json[1].to_user_id,
-      })
-      // messages[2].messages.push(
-      //   MessagesStore.setMessages(action.json))
+      openChatId = payload.action.id
+      MessagesStore.setMessages(payload.action.json)
       MessagesStore.emitChange()
       break
-    }
-    // case ActionTypes.GET_MESSAGE:
-    // {
-    //   const messages = CurrentUserStore
-    // }
+  }
   return true
 })
 

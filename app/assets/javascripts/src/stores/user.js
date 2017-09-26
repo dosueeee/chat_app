@@ -27,6 +27,11 @@ User.dispatchToken = Dispatcher.register(payload => {
   const action = payload.action
 
   switch (action.type) {
+    case ActionTypes.LOAD_USERS:
+      User.setUsers(payload.action.json)
+      User.emitChange()
+      break
+
     case ActionTypes.SEARCH_USERS:
       var hoge = action.json
       // var hoge2 = _.map(hoge, 'name')
