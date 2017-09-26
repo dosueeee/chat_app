@@ -16,7 +16,9 @@ class MessagesBox extends React.Component {
   }
   getStateFromStore() {
     return MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID())
-    return {messages: MessagesStore.getMessages()}
+    // return {
+    //   messages: MessagesStore.getMessages()
+    // }
   }
   componentWillMount() {
     MessagesStore.onChange(this.onStoreChange.bind(this))
@@ -30,7 +32,6 @@ class MessagesBox extends React.Component {
   render() {
     // const messagesLength = this.state.messages.length
     const currentUserID = 1
-
     const messages = this.state.messages.map((message, index) => {
       const messageClasses = classNames({
         'message-box__item': true,

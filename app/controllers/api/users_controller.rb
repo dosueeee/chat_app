@@ -3,8 +3,8 @@ module Api
 		def search
 			@users = []
 			if request.get?
-				@search_fstr = params[:search_fstr]
-				@users = User.where("name like '%" + @search_fstr + "%'")
+				@search_string = params[:search_string]
+				@users = User.where("name like '%" + @search_string + "%'")
 				render json: @users.to_json
 			else
 				render json: {errors: '検索したいユーザ名を入力してください'}
