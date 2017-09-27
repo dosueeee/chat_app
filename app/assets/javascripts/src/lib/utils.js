@@ -21,11 +21,6 @@ const Utils = {
     form.submit()
   },
 
-  patch: (path, params) => {
-    params['_method'] = 'patch'
-    Utils.post(path, params)
-  },
-
   delete: (path) => {
     const params = {'_method': 'delete'}
     Utils.post(path, params)
