@@ -18,15 +18,22 @@ class App extends React.Component {
 
   getStateFromStores() {
   	const openChatId = MessagesStore.getOpenChatUserId()
-  	const users = MessagesStore.getMessages()
+  	const users = MessagesStore.getUserMessages()
   	const openUserMessages = users.messages ? users.messages : []
-
+    const allMessages = _.concat(openUserMessages)
+    const messages = _.sortBy(allMessages, (message) => { return message.created_at })
+// debugger
   	return {
+      messages,
   	}
   }
 
   componentDidMount() {
   	MessagesStore.onChange(this.onChangeHandler)
+  }
+
+  componentWillUnmount() {
+    MessagesStore.offChange(this.onChangeHandler)
   }
 
   onStoreChange() {

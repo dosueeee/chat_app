@@ -4,7 +4,7 @@ export const ActionTypes = keyMirror({
   UPDATE_OPEN_CHAT_ID: null,
   SEND_MESSAGE: null,
   POST_MESSAGE: null,
-  GET_MESSAGE: null,
+  GET_MESSAGES: null,
   
   SEARCH_USERS: null,
   LOAD_USERS: null,
