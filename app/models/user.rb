@@ -1,12 +1,8 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   validates :name, presence: true, length: { maximum: 50 }
 
-  # belongs_to :friendships
-  # belongs_to :messages
   has_many :messages
   has_many :accesses
   has_many :friendships, dependent: :destroy
@@ -23,7 +19,7 @@ class User < ApplicationRecord
   end
 
   def break_off_friend(user)
-  	friendship = from_user_friendships.find_by(to_user_id: user.id)
+  	friendship = from_user_friendships.find_by(to_user_id: user.id) || to_user_friendships.find_by(from_user_id: user.id)
   	friendship.destroy if from_user_friendships
   end
 
@@ -51,5 +47,13 @@ class User < ApplicationRecord
 
   def to_friend?(user)
     friends_to_user.include?(user)
+  end
+
+  def unfollow_break_off_friendship(user)
+    if from_friend?(user)
+      from_user_friendships.find_by(to_user_id:user.id).destroy
+    elsif to_friend?(user)
+      to_user_friendships.find_by(from_user_id:user.id).destroy     
+    end
   end
 end

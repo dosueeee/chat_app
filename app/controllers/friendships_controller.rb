@@ -11,14 +11,20 @@ class FriendshipsController < ApplicationController
 		end
 	end
 
+	# def destroy
+	# 	@user = User.find(params[:id])
+	# 	if current_user.friend?(@user)
+	# 		frinedship = current_user.find_friendship_for(params[:id])
+	# 		current_user.break_off_friend(friendship)
+	# 		redirect_to root_path
+	# 	else
+	# 		redirect_to root_path
+	# 	end
+	# end
+
 	def destroy
-		@user = User.find(params[:id])
-		if current_user.friend?(@user)
-			frinedship = current_user.find_friendship_for(params[:id])
-			current_user.break_off_friend(friendship)
-			redirect_to root_path
-		else
-			redirect_to root_path
-		end
+		user = User.find(params[:id])
+		current_user.unfollow_break_off_friendship(user)
+		redirect_to root_path
 	end
 end
