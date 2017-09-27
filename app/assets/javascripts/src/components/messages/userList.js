@@ -12,10 +12,11 @@ class UserList extends React.Component {
   constructor(props) {
     super(props)
     this.state = this.initialState
+    this.onChangeHandler = this.onStoreChange.bind(this)
   }
 
   get initialState() {
-    return this.getStateFromStore()
+    return this.getStateFromStores()
   }
 
   // getStateFromStore() {
@@ -36,11 +37,23 @@ class UserList extends React.Component {
   //   }
   // }
 
-  getStateFromStore() {
+  // getStateFromStore() {
+  //   return {
+  //     users: UserStore.getUsers(),
+  //     openChatId: MessagesStore.getOpenChatUserId(),
+  //   }
+  // }
+
+  getStateFromStores() {
     return {
       users: UserStore.getUsers(),
       openChatId: MessagesStore.getOpenChatUserId(),
     }
+  }
+
+  componentDidMount() {
+    MessagesStore.onChange(this.onChangeHandler)
+    UserStore.onChange(this.onChangeHandler)
   }
 
   componentWillMount() {
@@ -48,22 +61,33 @@ class UserList extends React.Component {
     UserStore.onChange(this.onStoreChange.bind(this))
   }
 
+  // componentWillUnmount() {
+  //   MessagesStore.offChange(this.onStoreChange.bind(this))
+  //   UserStore.offChange(this.onStoreChange.bind(this))
+  // }
+
   componentWillUnmount() {
-    MessagesStore.offChange(this.onStoreChange.bind(this))
-    UserStore.offChange(this.onStoreChange.bind(this))
+    MessagesStore.offChange(this.onChangeHandler)
+    UserStore.offChange(this.onChangeHandler)
   }
 
   onStoreChange() {
-    this.setState(this.getStateFromStore())
+    this.setState(this.getStateFromStores())
   }
 
-  changeOpenChat(id) {
-    MessagesAction.changeOpenChat(id)
+  changeOpenChat(userId) {
+    MessagesAction.getMessages(userId)
   }
+
+  // changeOpenChat(id) {
+  //   MessagesAction.changeOpenChat(id)
+  // }
 
   render() {
     const {users, openChatId} = this.state
     const friendUsers = _.map(users, (user) => {
+      const messageLength = user.messages.length
+      const lastMessage = user.messages[messageLength - 1]
       console.log(user.name)
       return (
         <li

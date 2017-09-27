@@ -17,5 +17,13 @@ module Api
 			render json: @users
 		end
 
+		def show
+			@user = User.find(params[:id])
+			@messages = @user.messages.where(to_user_id: current_user.id)
+			@user_json = @user.as_json
+			@user_json[:messages] = @messages
+			render json: @user_json
+		end
+
 	end
 end

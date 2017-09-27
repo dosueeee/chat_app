@@ -43,15 +43,16 @@ export default {
       })
     })
   },
-  getMessages() {
+  getMessages(id) {
     return new Promise((resolve, reject) => {
       request
-      .get('/api/messages')
+      .get(`${APIEndpoints.USERS}/${id}`)
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
-            type: ActionTypes.GET_MESSAGE,
+            type: ActionTypes.GET_MESSAGES,
+            id,
             json,
           })
           resolve(json)
