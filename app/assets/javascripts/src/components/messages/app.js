@@ -3,6 +3,7 @@ import _ from 'lodash'
 import MessagesStore from '../../stores/messages'
 import UserList from './userList'
 import MessagesBox from './messagesBox'
+import CurrentUserStore from '../../stores/currentUser'
 
 class App extends React.Component {
 
@@ -18,22 +19,28 @@ class App extends React.Component {
 
   getStateFromStores() {
   	const openChatId = MessagesStore.getOpenChatUserId()
+    const currentUser = CurrentUserStore.getCurrentUser()
+    if (!currentUser) return {}
+    const currentUserMessages = currentUser.messages ? currentUser.messages : []
+    const currentUserMessagesToUser = _.filter(currentUserMessages, {to_user_id: openChatId})
   	const users = MessagesStore.getUserMessages()
   	const openUserMessages = users.messages ? users.messages : []
-    const allMessages = _.concat(openUserMessages)
+    const allMessages = _.concat(currentUserMessagesToUser, openUserMessages)
     const messages = _.sortBy(allMessages, (message) => { return message.created_at })
-// debugger
   	return {
+      currentUser,
       messages,
   	}
   }
 
   componentDidMount() {
   	MessagesStore.onChange(this.onChangeHandler)
+    CurrentUserStore.onChange(this.onChangeHandler)
   }
 
   componentWillUnmount() {
     MessagesStore.offChange(this.onChangeHandler)
+    CurrentUserStore.offChange(this.onChangeHandler)
   }
 
   onStoreChange() {

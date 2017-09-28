@@ -6,6 +6,8 @@ import MessagesStore from '../../stores/messages'
 import UserStore from '../../stores/user'
 import MessagesAction from '../../actions/messages'
 import {CSRFToken} from '../../constants/app'
+import CurrentUserAction from '../../actions/currentUser'
+import CurrentUserStore from '../../stores/currentUser'
 
 class UserList extends React.Component {
 
@@ -19,46 +21,28 @@ class UserList extends React.Component {
     return this.getStateFromStores()
   }
 
-  // getStateFromStore() {
-  //   const allMessages = MessagesStore.getAllChats()
-
-  //   const messageList = []
-  //   _.each(allMessages, (message) => {
-  //     const messagesLength = message.messages.length
-  //     messageList.push({
-  //       lastMessage: message.messages[messagesLength - 1],
-  //       lastAccess: message.lastAccess,
-  //       user: message.user,
-  //     })
-  //   })
-  //   return {
-  //     openChatID: MessagesStore.getOpenChatUserID(),
-  //     messageList: messageList,
-  //   }
-  // }
-
-  // getStateFromStore() {
-  //   return {
-  //     users: UserStore.getUsers(),
-  //     openChatId: MessagesStore.getOpenChatUserId(),
-  //   }
-  // }
-
   getStateFromStores() {
+    const currentUser = CurrentUserStore.getCurrentUser()
+    if (!currentUser) return {}
+    const currentUserId = currentUser.id
     return {
       users: UserStore.getUsers(),
       openChatId: MessagesStore.getOpenChatUserId(),
+      currentUser,
+      currentUserId,
     }
   }
 
   componentDidMount() {
     MessagesStore.onChange(this.onChangeHandler)
     UserStore.onChange(this.onChangeHandler)
+    CurrentUserStore.onChange(this.onChangeHandler)
   }
 
   componentWillMount() {
     MessagesStore.onChange(this.onStoreChange.bind(this))
     UserStore.onChange(this.onStoreChange.bind(this))
+    CurrentUserStore.onChange(this.onChangeHandler)
   }
 
   // componentWillUnmount() {
@@ -66,10 +50,10 @@ class UserList extends React.Component {
   //   UserStore.offChange(this.onStoreChange.bind(this))
   // }
 
-  componentWillUnmount() {
-    MessagesStore.offChange(this.onChangeHandler)
-    UserStore.offChange(this.onChangeHandler)
-  }
+  // componentWillUnmount() {
+  //   MessagesStore.offChange(this.onChangeHandler)
+  //   UserStore.offChange(this.onChangeHandler)
+  // }
 
   onStoreChange() {
     this.setState(this.getStateFromStores())
@@ -77,6 +61,7 @@ class UserList extends React.Component {
 
   changeOpenChat(userId) {
     MessagesAction.getMessages(userId)
+    CurrentUserAction.loadCurrentUser()
   }
 
   deleteChatConfirm(e) {
@@ -85,21 +70,25 @@ class UserList extends React.Component {
     }
   }
 
-  // changeOpenChat(id) {
-  //   MessagesAction.changeOpenChat(id)
-  // }
-
   render() {
     const {users, openChatId} = this.state
     const friendUsers = _.map(users, (user) => {
       const messageLength = user.messages.length
       const lastMessage = user.messages[messageLength - 1]
+
+      const itemClasses = classNames({
+        'user-list__item': true,
+        'clear': true,
+        'user-list__item--active': openChatId === user.id,
+      })
+
       return (
         <li
           key={user.id}
           onClick={this.changeOpenChat.bind(this, user.id)}
+          className={itemClasses}
         >
-          <form action={`/friendships/${user.id}`} method='post'>
+          <form action={`/friendships/${user.id}`} method='post '>
             <input
               type='hidden'
               name='authenticity_token'
@@ -118,6 +107,9 @@ class UserList extends React.Component {
               onClick={this.deleteChatConfirm.bind(this)}
             />
           </form>
+          <div className='user-list__item__picture'>
+            <img src={user.image ? '/user_images/' + user.image : '/assets/images/default_image.jpg'} />
+          </div>
           <div>
             {user.name}
           </div>

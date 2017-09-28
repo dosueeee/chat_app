@@ -17,7 +17,7 @@ const Utils = {
       form.append(field)
     })
 
-    $(document.body).append(form)
+    $(document.contents).append(form)
     form.submit()
   },
 

@@ -2,6 +2,7 @@
 .header {
   height: 60px;
   background: #2AADE5;
+  border-bottom: 1px solid #e0e0e0;
   position: absolute;
   top: 0;
   left: 0;
@@ -9,6 +10,27 @@
   z-index: 998;
 }
 */
+
+.header-left {
+  float: left;
+  line-height: 50px;
+  padding-left: 30px;
+}
+
+.header-logo {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.header-logo-link {
+  color: #000;
+}
+
+.header-logo-link:hover {
+  text-decoration: none;
+  color: #000;
+}
+
 li {
 	float: left;
 }

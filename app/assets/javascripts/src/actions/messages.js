@@ -9,40 +9,33 @@ export default {
       userID: newUserID,
     })
   },
-  // sendMessage(userID, message) {
-  //   Dispatcher.handleViewAction({
-  //     type: ''sendMessage'',
-  //     userID: userID,
-  //     message: message,
-  //     timestamp: +new Date(),
-  //   })
-  // },
-  sendMessage(userID, message) {
-    Dispatcher.handleViewAction({
-      type: ActionTypes.POST_MESSAGE,
-      userID: userID,
-      message: message,
-      timestamp: +new Date(),
-    })
+
+  sendMessage(contents, to_user_id) {
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.SEND_MESSAGE}`)
       .set('X-CSRF-Token', CSRFToken())
       .send({
-        contents: message,
-        from_user_id: 1,
+        contents,
+        to_user_id,
       })
       .end((error, res) => {
-        if (!error && res.status === 200 ) {
+        if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
             type: ActionTypes.SEND_MESSAGE,
+            contents,
+            to_user_id,
             json,
           })
+          resolve(json)
+        } else {
+          reject(res)
         }
       })
     })
   },
+
   getMessages(id) {
     return new Promise((resolve, reject) => {
       request
@@ -63,25 +56,28 @@ export default {
       )
     })
   },
-  // postMessage() {
-  //   console.log("huga")
-  //   return new Promise((resolve, reject) => {
-  //     request
-  //     .post('${APIEndpoints.MESSAGE}')
-  //     .set('X-CSRF-Token', CSRFToken())
-  //     .send({messages_id: messagesId})
-  //     .end((error, res) => {
-  //       if (!error && res.status === 200) {
-  //         const json = JSON.parse(res.text)
-  //         Dispatcher.handleServerAction({
-  //           type: ActionTypes.POST_MESSAGE,
-  //           messageId,
-  //           json,
-  //         })
-  //       } else {
-  //         reject(res)
-  //       }
-  //     })
-  //   })
-  // },
+
+  saveImageChat(file, to_user_id) {
+    return new Promise((resolve, reject) => {
+      request
+      .post(`${APIEndpoints.SEND_MESSAGE}/upload_image`)
+      .set('X-CSRF-Token', CSRFToken())
+      .attach('image', file, file.name)
+      .field('to_user_id', to_user_id)
+      .end((error, res) => {
+        if (!error && res.status === 200) {
+          const json = JSON.parse(res.text)
+          Dispatcher.handleServerAction({
+            type: ActionTypes.SAVE_IMAGE_CHAT,
+            image: json.message.image,
+            to_user_id,
+            json,
+          })
+          resolve(json)
+        } else {
+          reject(res)
+        }
+      })
+    })
+  },
 }

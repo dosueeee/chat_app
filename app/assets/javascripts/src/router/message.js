@@ -3,10 +3,11 @@ import BaseRouter from '../base/router'
 import App from '../components/messages/app'
 import MessagesAction from '../actions/messages'
 import UserAction from '../actions/user'
+import CurrentUserAction from '../actions/currentUser'
 
 export default class MessageRouter extends BaseRouter {
   register() {
-    this.route('/', this.decorateApp, this.loadUsers, this.loadMessages)
+    this.route('/', this.decorateApp, this.loadUsers, this.loadMessages, this.loadCurrentUser)
   }
 
   decorateApp(ctx, next) {
@@ -20,7 +21,12 @@ export default class MessageRouter extends BaseRouter {
   }
 
   loadMessages(ctx, next) {
-    MessagesAction.getMessages()
+    // MessagesAction.getMessages()
+    next()
+  }
+
+  loadCurrentUser(ctx, next) {
+    CurrentUserAction.loadCurrentUser()
     next()
   }
 }

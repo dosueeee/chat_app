@@ -3,11 +3,13 @@ import keyMirror from 'keymirror'
 export const ActionTypes = keyMirror({
   UPDATE_OPEN_CHAT_ID: null,
   SEND_MESSAGE: null,
-  POST_MESSAGE: null,
+  // POST_MESSAGE: null,
   GET_MESSAGES: null,
+  SAVE_IMAGE_CHAT: null,
   
   SEARCH_USERS: null,
   LOAD_USERS: null,
+  LOAD_CURRENT_USER: null,
   CREATE_FRIENDSHIPS: null,
 })
 
@@ -23,4 +25,5 @@ export const APIEndpoints = {
   USERS: APIRoot + '/users',
   SEARCH_USERS: APIRoot + '/users/search',
   CREATE_FRIENDSHIPS: APIRoot + '/friendships',
+  CURRENT_USER: APIRoot + '/current_user',
 }

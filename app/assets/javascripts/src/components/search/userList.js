@@ -69,29 +69,5 @@ class UserList extends React.Component {
     )
   }
 
-  // render() {
-  //   const users = this.state.users.map((user, index) => {
-  //     return (
-  //       <li
-  //         key={index}
-  //         onClick={this.onSubmitHandler.bind(this, user.id)}
-  //         className='list'
-  //       >
-  //         {user}
-  //       </li>
-  //     )
-  //   })
-  //   return (
-  //     <div>
-  //       <ul
-  //         className='list'
-  //         name='fstr'
-  //       >
-  //       {users}
-  //       </ul>
-  //     </div>
-  //     )
-  // }
-
 }
 export default UserList

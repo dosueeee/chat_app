@@ -34,8 +34,10 @@ class searchForm extends React.Component {
     const {searchString} = this.state
     return (
       <div className='search'>
-        <div className='header text-center'>
+        <div className='header-text-center'>
+          <br>
             <h1>Search</h1>
+          </br>
         </div>
         <form>
           <input
@@ -51,26 +53,6 @@ class searchForm extends React.Component {
     )
   }
 
-    // render() {
-    //   return (
-    //     <div>
-    //       <div className='header text-center'>
-    //         <h1>Search</h1>
-    //       </div>
-    //       <form>
-    //         <input
-    //           type='text'
-    //           value={this.state.value}
-    //           onChange={this.updateValue.bind(this)}
-    //           className='search_form_input'
-    //           placeholder='Type Name!'
-    //           name='fstr'
-    //         />
-    //       </form>
-    //       <UserList />,
-    //     </div>
-    //     )
-    // }
 }
 
 export default searchForm
