@@ -1,6 +1,6 @@
 import React from 'react'
 import UserStore from '../../stores/user'
-// import UserAction from '../../actions/user'
+import UserAction from '../../actions/user'
 import _ from 'lodash'
 import Utils from '../../lib/utils'
 
@@ -38,13 +38,13 @@ class UserList extends React.Component {
     this.setState(this.getStateFromStore())
   }
 
-  // createFriendships(to_user_id) {
-  //   UserAction.createFriendships(to_user_id)
-  // }
-
-  onSubmitHandler(to_user_id) {
-    Utils.post('/friendships', {to_user_id})
+  createFriendships(to_user_id) {
+    UserAction.createFriendships(to_user_id)
   }
+
+  // onSubmitHandler(to_user_id) {
+  //   Utils.post('/friendships', {to_user_id})
+  // }
 
   render() {
     const searchUsers = this.state.users
@@ -57,7 +57,8 @@ class UserList extends React.Component {
               <li className='search_user_list_item' key={index}>
                 <div
                 className='search_user_list_result'
-                onClick={this.onSubmitHandler.bind(this, user.id)}
+                // onClick={this.onSubmitHandler.bind(this, user.id)}
+                onClick={this.createFriendships.bind(this, user.id)}
                 >
                   {user.name}
                 </div>
