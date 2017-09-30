@@ -4,7 +4,6 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
 
   has_many :messages
-  has_many :accesses
   has_many :friendships, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :from_user_friendships, class_name: 'Friendship', foreign_key: 'from_user_id',
@@ -13,6 +12,13 @@ class User < ApplicationRecord
   has_many :to_user_friendships, class_name: 'Friendship', foreign_key: 'to_user_id',
            dependent: :destroy
   has_many :friends_to_user, through: :to_user_friendships, source: 'from_user'
+
+  # 多対多
+  has_many :friendships_of_from_user, :class_name => 'Friendship', :foreign_key => 'from_user_id', :dependent => :destroy
+  has_many :friendships_of_to_user, :class_name => 'Friendship', :foreign_key => 'to_user_id', :dependent => :destroy
+  has_many :friends_of_from_user, :through => :friendships_of_from_user, :source => 'to_user'
+  has_many :friends_of_to_user, :through => :friendships_of_to_user, :source => 'from_user'
+
 
   def make_friend_with(user)
   	from_user_friendships.find_or_create_by(to_user_id: user.id)
@@ -55,5 +61,13 @@ class User < ApplicationRecord
     elsif to_friend?(user)
       to_user_friendships.find_by(from_user_id:user.id).destroy     
     end
+  end
+
+  def friends
+    friends_of_from_user + friends_of_to_user
+  end
+
+  def friend_by_id(userId)
+    friendships_of_from_user.find_by(userId)
   end
 end

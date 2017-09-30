@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  # api
   namespace :api, { format: 'json' } do
     resources :messages, only: [:index, :create] do
       collection do
@@ -7,6 +8,7 @@ Rails.application.routes.draw do
       end
     end
     resources :contents
+    resources :friendships, only: [:create, :destroy]
     resources :current_user, only: [:index]
     resources :users, only: [:index, :show, :create] do
       collection do
@@ -15,8 +17,9 @@ Rails.application.routes.draw do
     end
   end
   
+  # 通常
   root 'messages#index'
-  resources :friendships, only: [:create, :destroy]
+  resources :friendships, only: [:create]
 
   devise_for :users, controllers: {
     registrations: 'users/registrations',

@@ -15,7 +15,7 @@
           %header.header
             .header-left
               .header-logo
-                %li
+                .btn
                   %a{:href => "/"} ChatApp
             .header-right
               %ul.nav.nav-tabs
@@ -32,7 +32,7 @@
                   %a{:href => "/users/sign_out"} ログアウト
         - else 
           %li
-            %a{:href => "/users/sign_in"} ログイン
+            / %a{:href => "/users/sign_in"} ログイン
 
   %body
     

@@ -15,13 +15,6 @@ class searchForm extends React.Component {
     }
   }
 
-  // updateValue(e) {
-  //   UserAction.searchUsers(e.target.value)
-  //   this.setState({
-  //     value: searchString,
-  //   })
-  // }
-
   handleChange(e) {
     const searchString = e.target.value
     this.setState({
@@ -34,11 +27,6 @@ class searchForm extends React.Component {
     const {searchString} = this.state
     return (
       <div className='search'>
-        <div className='header-text-center'>
-          <br>
-            <h1>Search</h1>
-          </br>
-        </div>
         <form>
           <input
             type='text'

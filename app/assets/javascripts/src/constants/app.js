@@ -11,6 +11,7 @@ export const ActionTypes = keyMirror({
   LOAD_USERS: null,
   LOAD_CURRENT_USER: null,
   CREATE_FRIENDSHIPS: null,
+  DELETE_FRIENDSHIPS: null,
 })
 
 export function CSRFToken() {
@@ -25,5 +26,6 @@ export const APIEndpoints = {
   USERS: APIRoot + '/users',
   SEARCH_USERS: APIRoot + '/users/search',
   CREATE_FRIENDSHIPS: APIRoot + '/friendships',
+  DELETE_FRIENDSHIPS: APIRoot + '/friendships/',
   CURRENT_USER: APIRoot + '/current_user',
 }

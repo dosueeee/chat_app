@@ -1,15 +1,13 @@
-/*
 .header {
   height: 60px;
-  background: #2AADE5;
+  background: #F5F5F5;
   border-bottom: 1px solid #e0e0e0;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 998;
+  z-index: 1;
 }
-*/
 
 .header-left {
   float: left;
@@ -20,6 +18,8 @@
 .header-logo {
   font-weight: bold;
   font-size: 20px;
+  float: left;
+  z-index: 999;
 }
 
 .header-logo-link {
@@ -31,9 +31,40 @@
   color: #000;
 }
 
-li {
-	float: left;
+.logout {
+  float: left;
+  padding: 20px;
+  z-index: 999;
 }
+
+.user-edit {
+  float: left;
+  padding: 20px;
+  z-index: 999;
+}
+
+
+.search-user-btn {
+  float: right;
+  padding: 20px;
+  z-index: 999;
+}
+
+.user-page {
+  float: right;
+  padding: 20px;
+  z-index: 999;
+}
+
+.user-id {
+ float: right; 
+ padding: 20px;
+ z-index: 999;
+}
+
+/*li {
+	float: left;
+}*/
 
 form {
 	text-align: center;
