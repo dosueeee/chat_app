@@ -68,8 +68,6 @@ class User < ApplicationRecord
   end
 
   def friend_by_id(userId)
-    binding.pry
-    friendships_of_from_user.find_by(to_user_id: user.id)
-    binding.pry
+    friendships_of_from_user.find_by(userId)
   end
 end

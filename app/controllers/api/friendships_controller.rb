@@ -26,7 +26,6 @@ module Api
   	  def destroy
   	  	# destroy_user = current_user.friendships_of_from_user(destroy_user_params)
     	  destroy_user = current_user.friend_by_id(destroy_user_params)
-    	  # binding.pry
     	if destroy_user.destroy
       	  render json: { status: 200, user: current_user.as_json(methods: 'friends') }
     	else
