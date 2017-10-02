@@ -96,7 +96,6 @@ class UserList extends React.Component {
           <div>
             <input
               type='button'
-              // value='&#xf00d;'
               value='X'
               key={user.id}
               className='remove-chat-btn'

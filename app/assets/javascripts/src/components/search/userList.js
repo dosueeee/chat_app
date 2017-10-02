@@ -42,10 +42,6 @@ class UserList extends React.Component {
     UserAction.createFriendships(to_user_id)
   }
 
-  // onSubmitHandler(to_user_id) {
-  //   Utils.post('/friendships', {to_user_id})
-  // }
-
   render() {
     const searchUsers = this.state.users
 

@@ -21,7 +21,6 @@ export default class MessageRouter extends BaseRouter {
   }
 
   loadMessages(ctx, next) {
-    // MessagesAction.getMessages()
     next()
   }
 

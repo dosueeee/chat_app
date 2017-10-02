@@ -1,17 +1,6 @@
 module Api
 	class UsersController < ApplicationController
 
-		# def search
-		# 	@users = []
-		# 	if request.get?
-		# 		@search_string = params[:search_string]
-		# 		@users = User.where("name like '%" + @search_string + "%'")
-		# 		render json: @users.to_json
-		# 	else
-		# 		render json: {errors: '検索したいユーザ名を入力してください'}
-		# 	end
-		# end
-
 		def search
 			@users = User.where.not(id: current_user.id)
 			@search_string = params[:search_string]

@@ -29,9 +29,6 @@
                   %a{:href => "/users/sign_out"} ログアウト
                 %li.user-name
                   = current_user.name
-        - else 
-          %li
-            / %a{:href => "/users/sign_in"} ログイン
 
   %body
     = render 'layouts/flash'

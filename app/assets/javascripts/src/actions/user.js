@@ -48,7 +48,6 @@ export default {
       .set('X-CSRF-Token', CSRFToken())
       .send({
         to_user_id
-        // from_user_id: current_user.id,
       })
       .end((error, res) => {
         const json = JSON.parse(res.text)

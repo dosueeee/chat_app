@@ -3,14 +3,6 @@ import BaseStore from '../base/store'
 import {ActionTypes} from '../constants/app'
 import _ from 'lodash'
 
-// const UserStore = {
-//   user: {
-//     id: 1,
-//     name: 'John Doek',
-//     profilePicture: 'https://avatars1.githubusercontent.com/u/8901351?v=3&s=200',
-//   },
-// }
-
 class UserStore extends BaseStore {
   getUsers() {
     if (!this.get('users')) this.setUsers([])
@@ -34,7 +26,6 @@ User.dispatchToken = Dispatcher.register(payload => {
 
     case ActionTypes.SEARCH_USERS:
       var hoge = action.json
-      // var hoge2 = _.map(hoge, 'name')
       User.setUsers(hoge)
       User.emitChange()
       break
