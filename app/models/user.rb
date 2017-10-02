@@ -67,7 +67,11 @@ class User < ApplicationRecord
     friends_of_from_user + friends_of_to_user
   end
 
-  def friend_by_id(userId)
-    friendships_of_from_user.find_by(userId)
+  def friend_by_id(user_id)
+    friendships_of_from_user.find_by(to_user_id: user_id) || friendships_of_to_user.find_by(from_user_id: user_id)
+  end
+
+  def friend_by_id_to(user)
+    friendships_of_to_user.find_by(from_user_id: current_user.id)
   end
 end

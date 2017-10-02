@@ -21,9 +21,9 @@
               %ul.nav.nav-tabs
                 %li.search-user-btn
                   %a{:href => "/users/search"} ユーザーを探す
-                %li.user-id
-                  %a id :
-                  = current_user.id
+                / %li.user-id
+                /   %a id :
+                /   = current_user.id
                 %li.user-page
                   %a{:href => "/users/#{current_user.id}"} マイページ
                 %li.user-edit
