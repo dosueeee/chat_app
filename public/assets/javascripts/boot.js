@@ -1,1 +1,0 @@
-console.error("Error: Cannot find module '/Users/Ryosuke/Desktop/workspace/flux_tutorial/app/assets/javascripts/src/boot.js' from '/Users/Ryosuke/Desktop/workspace/flux_tutorial'");

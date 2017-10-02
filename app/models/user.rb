@@ -74,4 +74,11 @@ class User < ApplicationRecord
   def friend_by_id_to(user)
     friendships_of_to_user.find_by(from_user_id: current_user.id)
   end
+
+  def set_image(file)
+    return if file.nil?
+    file_name = Time.zone.now.to_i.to_s + file.original_filename
+    File.open("public/user_images/#{file_name}", "wb") {|f|f.write(file.read)}
+    self.image = file_name
+  end
 end
