@@ -25,13 +25,34 @@ module Api
 
   	  def destroy
   	  	# destroy_user = current_user.friendships_of_from_user(destroy_user_params)
-    	  destroy_user = current_user.friend_by_id(destroy_user_params)
-    	if destroy_user.destroy
-      	  render json: { status: 200, user: current_user.as_json(methods: 'friends') }
-    	else
-      	  render json: { status: 400, user: current_user.as_json(methods: 'friends') }
-    	end
+    	  destroy_friendship = current_user.friend_by_id(params[:to_user_id])
+    	  if destroy_friendship.destroy
+          @users = current_user.friends_all.as_json(include: [:messages])
+          # render json: @users
+          render json: {status: 200, user: @users}
+    	  else
+      	  @users = current_user.friends_all.as_json(include: [:messages])
+          # render json: @users
+          render json: {status: 200, user: @users}
+    	  end
   	  end
+
+      # def destroy
+      #   if destroy_user = current_user.friend_by_id(destroy_user_params)
+      #     if @friendship.save
+      #       render json: { status: 200, friendship: @friendship }
+      #     else
+      #       render json: { status: 200, friendship: @friendship }
+      #     end
+
+      #   elsif destroy_user = current_user.friend_by_id_to(destroy_user_params)
+      #     if @friendship.save
+      #       render json: { status: 200, friendship: @friendship }
+      #     else
+      #       render json: { status: 200, friendship: @friendship }
+      #     end
+      #   end
+      # end
 
   	  private
 
@@ -39,9 +60,9 @@ module Api
     	params.require(:friendship).permit(:to_user_id)
   	  end
 
-  	  def destroy_user_params
-    	ActionController::Parameters.new(params).permit(:to_user_id)
-  	  end
+  	  # def destroy_user_params
+    	# ActionController::Parameters.new(params).permit(:to_user_id)
+  	  # end
 
 	end
 end
