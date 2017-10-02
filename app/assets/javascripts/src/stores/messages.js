@@ -67,6 +67,12 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
     }
     MessagesStore.emitChange()
     break
+
+    case ActionTypes.DELETE_FRIENDSHIPS:
+      openChatId = payload.action.id
+      MessagesStore.setUserMessages(payload.action.json)
+      MessagesStore.emitChange()
+      break
   }
   return true
 })

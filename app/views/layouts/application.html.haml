@@ -21,19 +21,18 @@
               %ul.nav.nav-tabs
                 %li.search-user-btn
                   %a{:href => "/users/search"} ユーザーを探す
-                / %li.user-id
-                /   %a id :
-                /   = current_user.id
                 %li.user-page
                   %a{:href => "/users/#{current_user.id}"} マイページ
                 %li.user-edit
                   %a{:href => "/users/edit"} 登録情報編集
                 %li.logout
                   %a{:href => "/users/sign_out"} ログアウト
+                %li.user-name
+                  = current_user.name
         - else 
           %li
             / %a{:href => "/users/sign_in"} ログイン
 
   %body
-    
+    = render 'layouts/flash'
     = yield

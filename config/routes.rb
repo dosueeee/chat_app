@@ -31,5 +31,5 @@ Rails.application.routes.draw do
   }
   
   get "users/search" => "users#search"
-  get "users/:id" => "users#show"
+  get "users/:id" => "users#show", as: "user"
 end

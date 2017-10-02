@@ -57,6 +57,21 @@
   position: relative;
 }
 
+.flash {
+  color: white;
+  text-align: center;
+  z-index: 1000;
+  &__alert{
+    background-color: red;
+    z-index: 1000;
+  }
+  &__notice {
+    background-color: blue;
+    z-index: 1000;
+  }
+}
+
+
 //登録情報編集
 
 .nav-tabs {
