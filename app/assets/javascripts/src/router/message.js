@@ -1,7 +1,6 @@
 import ReactDecorator from '../base/react_decorator'
 import BaseRouter from '../base/router'
 import App from '../components/messages/app'
-import MessagesAction from '../actions/messages'
 import UserAction from '../actions/user'
 import CurrentUserAction from '../actions/currentUser'
 

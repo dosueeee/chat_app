@@ -12,7 +12,7 @@ class MessagesBox extends React.Component {
       messages: React.PropTypes.array,
     }
   }
-  
+
   render() {
     const {messages, currentUser} = this.props
 

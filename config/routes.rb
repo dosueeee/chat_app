@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  
+
   # 通常
   root 'messages#index'
   resources :friendships, only: [:create]

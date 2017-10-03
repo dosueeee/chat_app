@@ -22,11 +22,11 @@ export default {
     })
   },
 
-  searchUsers(search_string) {
+  searchUsers(search_name) {
     return new Promise((resolve, reject) => {
       request
       .get(`${APIEndpoints.SEARCH_USERS}`)
-      .query({search_string})
+      .query({search_name})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
@@ -47,7 +47,7 @@ export default {
       .post(`${APIEndpoints.CREATE_FRIENDSHIPS}`)
       .set('X-CSRF-Token', CSRFToken())
       .send({
-        to_user_id
+        to_user_id,
       })
       .end((error, res) => {
         const json = JSON.parse(res.text)

@@ -71,10 +71,6 @@ class User < ApplicationRecord
     friendships_of_from_user.find_by(to_user_id: user_id) || friendships_of_to_user.find_by(from_user_id: user_id)
   end
 
-  def friend_by_id_to(user)
-    friendships_of_to_user.find_by(from_user_id: current_user.id)
-  end
-
   def set_image(file)
     return if file.nil?
     file_name = Time.zone.now.to_i.to_s + file.original_filename

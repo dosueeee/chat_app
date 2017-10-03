@@ -12,7 +12,7 @@ export default {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
             type: ActionTypes.LOAD_CURRENT_USER,
-            json, json,
+            json,
           })
           resolve(json)
         } else {
@@ -20,5 +20,5 @@ export default {
         }
       })
     })
-  }
+  },
 }

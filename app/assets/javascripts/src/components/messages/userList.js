@@ -1,11 +1,9 @@
 import React from 'react'
 import _ from 'lodash'
 import classNames from 'classnames'
-import Utils from '../../utils'
 import MessagesStore from '../../stores/messages'
 import UserStore from '../../stores/user'
 import MessagesAction from '../../actions/messages'
-import {CSRFToken} from '../../constants/app'
 import CurrentUserAction from '../../actions/currentUser'
 import CurrentUserStore from '../../stores/currentUser'
 import UserAction from '../../actions/user'
@@ -46,16 +44,6 @@ class UserList extends React.Component {
     CurrentUserStore.onChange(this.onChangeHandler)
   }
 
-  // componentWillUnmount() {
-  //   MessagesStore.offChange(this.onStoreChange.bind(this))
-  //   UserStore.offChange(this.onStoreChange.bind(this))
-  // }
-
-  // componentWillUnmount() {
-  //   MessagesStore.offChange(this.onChangeHandler)
-  //   UserStore.offChange(this.onChangeHandler)
-  // }
-
   onStoreChange() {
     this.setState(this.getStateFromStores())
   }
@@ -65,12 +53,6 @@ class UserList extends React.Component {
     CurrentUserAction.loadCurrentUser()
   }
 
-  // deleteChatConfirm(e) {
-  //   if (!confirm('本当に削除しますか？(チャットの履歴は残ります。)')) {
-  //     e.preventDefault()
-  //   }
-  // }
-
   deleteFriendships(userId) {
     UserAction.deleteFriendships(userId)
   }
@@ -78,9 +60,6 @@ class UserList extends React.Component {
   render() {
     const {users, openChatId} = this.state
     const friendUsers = _.map(users, (user) => {
-      const messageLength = user.messages.length
-      const lastMessage = user.messages[messageLength - 1]
-
       const itemClasses = classNames({
         'user-list__item': true,
         'clear': true,

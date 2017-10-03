@@ -3,29 +3,23 @@ module Api
 
 	  def create
     	@friendship = current_user.friendships_of_from_user.build(friendship_params)
-    	if @friendship.save
+    	@friendship.save
       	  render json: { status: 200, friendship: @friendship }
-    	else
-      	  render json: { status: 200, friendship: @friendship }
+  	end
+
+  	def destroy
+    	destroy_friendship = current_user.friend_by_id(friendship_params)
+    	if destroy_friendship.destroy
+        @users = current_user.friends_all.as_json(include: [:messages])
+        render json: {status: 200, user: @users}
     	end
-  	  end
+  	end
 
-  	  def destroy
-    	  destroy_friendship = current_user.friend_by_id(params[:to_user_id])
-    	  if destroy_friendship.destroy
-          @users = current_user.friends_all.as_json(include: [:messages])
-          render json: {status: 200, user: @users}
-    	  else
-      	  @users = current_user.friends_all.as_json(include: [:messages])
-          render json: {status: 200, user: @users}
-    	  end
-  	  end
+  	private
 
-  	  private
-
-  	  def friendship_params
+  	def friendship_params
     	params.require(:friendship).permit(:to_user_id)
-  	  end
+  	end
 
-	end
+  end
 end

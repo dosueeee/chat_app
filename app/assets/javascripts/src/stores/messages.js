@@ -21,7 +21,7 @@ class MessageStore extends BaseStore {
 
   getUserMessages() {
     if (!this.get('userMessages')) this.setUserMessages({})
-      return this.get('userMessages')
+    return this.get('userMessages')
   }
 
   setUserMessages(obj) {
@@ -47,7 +47,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       }
       MessagesStore.emitChange()
       break
-    
+
     case ActionTypes.GET_MESSAGES:
       openChatId = payload.action.id
       MessagesStore.setUserMessages(payload.action.json)
@@ -55,18 +55,18 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       break
 
     case ActionTypes.SAVE_IMAGE_CHAT:
-    {
-      const messages = CurrentUserStore.getCurrentUser().messages
-      const currentUserId = CurrentUserStore.getCurrentUser().id
-      messages.push({
-        id: Math.floor(Math.random() * 1000000),
-        image: payload.action.image,
-        to_user_id: payload.action.to_user_id,
-        user_id: currentUserId,
-      })
-    }
-    MessagesStore.emitChange()
-    break
+      {
+        const messages = CurrentUserStore.getCurrentUser().messages
+        const currentUserId = CurrentUserStore.getCurrentUser().id
+        messages.push({
+          id: Math.floor(Math.random() * 1000000),
+          image: payload.action.image,
+          to_user_id: payload.action.to_user_id,
+          user_id: currentUserId,
+        })
+      }
+      MessagesStore.emitChange()
+      break
 
     case ActionTypes.DELETE_FRIENDSHIPS:
       openChatId = payload.action.id

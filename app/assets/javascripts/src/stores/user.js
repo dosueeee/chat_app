@@ -1,7 +1,6 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
 import {ActionTypes} from '../constants/app'
-import _ from 'lodash'
 
 class UserStore extends BaseStore {
   getUsers() {

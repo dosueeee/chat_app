@@ -2,7 +2,6 @@ import React from 'react'
 import UserStore from '../../stores/user'
 import UserAction from '../../actions/user'
 import _ from 'lodash'
-import Utils from '../../lib/utils'
 
 class UserList extends React.Component {
   static get propTypes() {
@@ -13,11 +12,11 @@ class UserList extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = this.initialState	
-  }	
+    this.state = this.initialState
+  }
 
   get initialState() {
-    return this.getStateFromStore()	
+    return this.getStateFromStore()
   }
 
   getStateFromStore() {
@@ -53,7 +52,6 @@ class UserList extends React.Component {
               <li className='search_user_list_item' key={index}>
                 <div
                 className='search_user_list_result'
-                // onClick={this.onSubmitHandler.bind(this, user.id)}
                 onClick={this.createFriendships.bind(this, user.id)}
                 >
                   {user.name}
