@@ -24,21 +24,6 @@ class User < ApplicationRecord
   	from_user_friendships.find_or_create_by(to_user_id: user.id)
   end
 
-  def break_off_friend(user)
-  	friendship = from_user_friendships.find_by(to_user_id: user.id) || to_user_friendships.find_by(from_user_id: user.id)
-  	friendship.destroy if from_user_friendships
-  end
-
-  def find_friendship_for(user_id)
-  	from_user_friendship = from_user_friendships.find_by(to_user_id: user_id)
-  	to_user_friendship = to_user_friendship.find_by(from_user_id: user_id)
-    if from_user_friendship
-      from_user_friendship.to_user
-    else
-      to_user_friendship.from_user
-    end
-  end
-
   def friends_all
     friends_to_user + friends_from_user
   end
@@ -61,10 +46,6 @@ class User < ApplicationRecord
     elsif to_friend?(user)
       to_user_friendships.find_by(from_user_id:user.id).destroy     
     end
-  end
-
-  def friends
-    friends_of_from_user + friends_of_to_user
   end
 
   def friend_by_id(user_id)

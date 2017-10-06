@@ -28,8 +28,7 @@ Rails.application.routes.draw do
     passwords: 'users/passwords',
     sessions: 'users/sessions',
     unlocks: 'users/unlocks',
-  }
-  
+  }  
   get "users/search" => "users#search"
   get "users/:id" => "users#show", as: "user"
 end

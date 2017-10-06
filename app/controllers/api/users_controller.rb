@@ -5,11 +5,11 @@ module Api
 	  	@users = User.where.not(id: current_user.id)
 	  	@search_name = params[:search_name]
 	  	if !@search_name || @search_name == ""
-				@search_name = []
+				@users = []
 	  	else
-				@search_name = @users.where("name like '%" + @search_name + "%'")
+				@users = @users.where("name like '%" + @search_name + "%'")
 	  	end
-	  	render json: @search_name
+	  	render json: @users
     end
 
     def index
