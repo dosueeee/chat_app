@@ -6,6 +6,7 @@ export default {
   loadUsers() {
     return new Promise((resolve, reject) => {
       request
+      // APIEndpoints.USERSのみで良い。(`${}`は要らない)
       .get(`${APIEndpoints.USERS}`)
       .end((error, res) => {
         if (!error && res.status === 200) {
@@ -25,6 +26,7 @@ export default {
   searchUsers(search_name) {
     return new Promise((resolve, reject) => {
       request
+      // この辺も
       .get(`${APIEndpoints.SEARCH_USERS}`)
       .query({search_name})
       .end((error, res) => {
@@ -40,7 +42,7 @@ export default {
         }
       })
     })
-  },
+  },// 改行が欲しい
   createFriendships(to_user_id) {
     return new Promise((resolve, reject) => {
       request

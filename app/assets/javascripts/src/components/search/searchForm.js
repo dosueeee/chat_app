@@ -36,6 +36,7 @@ class searchForm extends React.Component {
             placeholder='ユーザー名で検索しよう'
           />
         </form>
+        {/* UserListコンポーネントにthis.stateを渡す必要はある？ */}
         <UserList {...this.state} />
       </div>
     )

@@ -19,11 +19,12 @@ User.dispatchToken = Dispatcher.register(payload => {
 
   switch (action.type) {
     case ActionTypes.LOAD_USERS:
-      User.setUsers(payload.action.json)
+      User.setUsers(payload.action.json) // action.json
       User.emitChange()
       break
 
     case ActionTypes.SEARCH_USERS:
+      // hogeという変数名は、何が格納されているか分かりづらいので、変更した方が良い
       var hoge = action.json
       User.setUsers(hoge)
       User.emitChange()
