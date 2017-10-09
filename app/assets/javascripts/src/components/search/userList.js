@@ -21,6 +21,10 @@ class UserList extends React.Component {
 
   getStateFromStore() {
     return {
+      // components/messages/userList.jsでもUserStore.getUsers()を使っている
+      // components/messages/userList.jsでは友達関係にあるユーザー一覧を表示するのに対して、
+      // このuserListコンポーネントでは検索したユーザーを表示するため、異なる関数で取得できるようにすると良い
+      // 今回は動いているが、ユーザー一覧と検索したユーザーを一緒に表示したい場合は今の状態では上手くいかないはず
       users: UserStore.getUsers(),
     }
   }
@@ -49,7 +53,7 @@ class UserList extends React.Component {
         {
           _.map(searchUsers, (user, index) => {
             return (
-              <li className='search_user_list_item' key={index}>
+              <li className='search_user_list_item' key={index}> {/* indexはcollectionの長さによって変わりうるので、keyにはuser.idを使う */}
                 <div
                 className='search_user_list_result'
                 onClick={this.createFriendships.bind(this, user.id)}

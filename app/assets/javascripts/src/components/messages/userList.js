@@ -21,6 +21,8 @@ class UserList extends React.Component {
   }
 
   getStateFromStores() {
+    // AppコンポーネントでcurrentUserを取得して、stateに入れているのなら、
+    // Appコンポーネントから、propsで渡す
     const currentUser = CurrentUserStore.getCurrentUser()
     if (!currentUser) return {}
     const currentUserId = currentUser.id
@@ -28,12 +30,15 @@ class UserList extends React.Component {
       users: UserStore.getUsers(),
       openChatId: MessagesStore.getOpenChatUserId(),
       currentUser,
-      currentUserId,
+      currentUserId, // currentUserとcurrentUserIdを別々に渡す必要はない
     }
   }
 
   componentDidMount() {
     MessagesStore.onChange(this.onChangeHandler)
+    // getCurrentUser関数がUserStoreにまとまっていれば、ここで
+    // CurrentUserStore.onChange(this.onChangeHandler)
+    // という1行は必要なくなる
     UserStore.onChange(this.onChangeHandler)
     CurrentUserStore.onChange(this.onChangeHandler)
   }
@@ -50,6 +55,7 @@ class UserList extends React.Component {
 
   changeOpenChat(userId) {
     MessagesAction.getMessages(userId)
+    // ここでCurrentUserAction.loadCurrentUser()を呼び出す必要ある？
     CurrentUserAction.loadCurrentUser()
   }
 
@@ -59,6 +65,7 @@ class UserList extends React.Component {
 
   render() {
     const {users, openChatId} = this.state
+    // mapの第二引数にthisを渡す必要ある？
     const friendUsers = _.map(users, (user) => {
       const itemClasses = classNames({
         'user-list__item': true,
@@ -76,7 +83,7 @@ class UserList extends React.Component {
             <input
               type='button'
               value='X'
-              key={user.id}
+              key={user.id} // inputはkeyなくても良い
               className='remove-chat-btn'
               onClick={this.deleteFriendships.bind(this, user.id)}
             />

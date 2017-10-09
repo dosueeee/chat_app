@@ -1,5 +1,8 @@
 import React from 'react'
 import classNames from 'classNames'
+// 不要なコメントアウトはコードの可読性と保守性を下げるため、削除する
+// 必要はコメントアウトは、
+// TODO: 〇〇, NOTE: 〇〇, FIXME: 〇〇のように書くと、後から見返したときに便利
 // import MessagesStore from '../../stores/messages'
 import ReplyBox from '../../components/messages/replyBox'
 import _ from 'lodash'

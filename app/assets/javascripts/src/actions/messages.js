@@ -36,6 +36,11 @@ export default {
     })
   },
 
+  /*
+  idだとmessageのidなのか、userのidなのか、openChatのidなのか分かりづらいので、
+  理想的にはopenChatIdとするのが良い
+  */
+
   getMessages(id) {
     return new Promise((resolve, reject) => {
       request

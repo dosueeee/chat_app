@@ -19,10 +19,12 @@ class App extends React.Component {
 
   getStateFromStores() {
     const openChatId = MessagesStore.getOpenChatUserId()
+    // CurrentUserStoreに関数を定義するより、UserStoreに定義して、UserStore.getCurrentUser()とした方が良い
     const currentUser = CurrentUserStore.getCurrentUser()
     if (!currentUser) return {}
     const currentUserMessages = currentUser.messages ? currentUser.messages : []
     const currentUserMessagesToUser = _.filter(currentUserMessages, {to_user_id: openChatId})
+    // 〇〇Storeから取得しているコードはまとめた方が良い
     const users = MessagesStore.getUserMessages()
     const openUserMessages = users.messages ? users.messages : []
     const allMessages = _.concat(currentUserMessagesToUser, openUserMessages)
@@ -50,6 +52,7 @@ class App extends React.Component {
   render() {
     return (
         <div className='app'>
+          {/* 細かいけど、こういう部分のインデントも揃えた方が良い */}
           <UserList />
           <MessagesBox {...this.state}/>
         </div>
