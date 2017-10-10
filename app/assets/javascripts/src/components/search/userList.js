@@ -49,7 +49,7 @@ class UserList extends React.Component {
         {
           _.map(searchUsers, (user, index) => {
             return (
-              <li className='search_user_list_item' key={index}>
+              <li className='search_user_list_item' key={user.id}>
                 <div
                 className='search_user_list_result'
                 onClick={this.createFriendships.bind(this, user.id)}

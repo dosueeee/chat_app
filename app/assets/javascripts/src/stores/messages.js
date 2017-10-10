@@ -39,7 +39,6 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
         const messages = CurrentUserStore.getCurrentUser().messages
         const currentUserId = CurrentUserStore.getCurrentUser().id
         messages.push({
-          id: Math.floor(Math.random() * 1000000),
           contents: payload.action.contents,
           to_user_id: payload.action.to_user_id,
           user_id: currentUserId,
@@ -49,8 +48,8 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       break
 
     case ActionTypes.GET_MESSAGES:
-      openChatId = payload.action.id
-      MessagesStore.setUserMessages(payload.action.json)
+      openChatId = action.id
+      MessagesStore.setUserMessages(action.json)
       MessagesStore.emitChange()
       break
 
@@ -69,7 +68,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       break
 
     case ActionTypes.DELETE_FRIENDSHIPS:
-      openChatId = payload.action.id
+      openChatId = action.id
       MessagesStore.setUserMessages(payload.action.json)
       MessagesStore.emitChange()
       break

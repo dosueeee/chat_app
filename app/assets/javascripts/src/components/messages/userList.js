@@ -28,14 +28,12 @@ class UserList extends React.Component {
       users: UserStore.getUsers(),
       openChatId: MessagesStore.getOpenChatUserId(),
       currentUser,
-      currentUserId,
     }
   }
 
   componentDidMount() {
     MessagesStore.onChange(this.onChangeHandler)
     UserStore.onChange(this.onChangeHandler)
-    CurrentUserStore.onChange(this.onChangeHandler)
   }
 
   componentWillMount() {
@@ -50,7 +48,6 @@ class UserList extends React.Component {
 
   changeOpenChat(userId) {
     MessagesAction.getMessages(userId)
-    CurrentUserAction.loadCurrentUser()
   }
 
   deleteFriendships(userId) {
@@ -76,7 +73,6 @@ class UserList extends React.Component {
             <input
               type='button'
               value='X'
-              key={user.id}
               className='remove-chat-btn'
               onClick={this.deleteFriendships.bind(this, user.id)}
             />

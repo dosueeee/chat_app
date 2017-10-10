@@ -24,8 +24,8 @@ User.dispatchToken = Dispatcher.register(payload => {
       break
 
     case ActionTypes.SEARCH_USERS:
-      var hoge = action.json
-      User.setUsers(hoge)
+      var user = action.json
+      User.setUsers(user)
       User.emitChange()
       break
 

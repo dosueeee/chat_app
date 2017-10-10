@@ -20,10 +20,10 @@ class App extends React.Component {
   getStateFromStores() {
     const openChatId = MessagesStore.getOpenChatUserId()
     const currentUser = CurrentUserStore.getCurrentUser()
+    const users = MessagesStore.getUserMessages()
     if (!currentUser) return {}
     const currentUserMessages = currentUser.messages ? currentUser.messages : []
     const currentUserMessagesToUser = _.filter(currentUserMessages, {to_user_id: openChatId})
-    const users = MessagesStore.getUserMessages()
     const openUserMessages = users.messages ? users.messages : []
     const allMessages = _.concat(currentUserMessagesToUser, openUserMessages)
     const messages = _.sortBy(allMessages, (message) => { return message.created_at })
@@ -49,10 +49,10 @@ class App extends React.Component {
 
   render() {
     return (
-        <div className='app'>
-          <UserList />
-          <MessagesBox {...this.state}/>
-        </div>
+      <div className='app'>
+        <UserList />
+        <MessagesBox {...this.state}/>
+      </div>
       )
   }
 }
