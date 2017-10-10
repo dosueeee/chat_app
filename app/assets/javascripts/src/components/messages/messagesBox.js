@@ -1,6 +1,5 @@
 import React from 'react'
 import classNames from 'classNames'
-// import MessagesStore from '../../stores/messages'
 import ReplyBox from '../../components/messages/replyBox'
 import _ from 'lodash'
 
@@ -32,12 +31,12 @@ class MessagesBox extends React.Component {
     })
 
     return (
-        <div className='message-box'>
-          <ul className='message-box__list'>
-            {userMessages}
-          </ul>
-          <ReplyBox />
-        </div>
+      <div className='message-box'>
+        <ul className='message-box__list'>
+          {userMessages}
+        </ul>
+        <ReplyBox />
+      </div>
       )
   }
 }

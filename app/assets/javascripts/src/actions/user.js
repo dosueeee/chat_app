@@ -6,7 +6,7 @@ export default {
   loadUsers() {
     return new Promise((resolve, reject) => {
       request
-      .get(`${APIEndpoints.USERS}`)
+      .get(APIEndpoints.USERS)
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
@@ -25,7 +25,7 @@ export default {
   searchUsers(search_name) {
     return new Promise((resolve, reject) => {
       request
-      .get(`${APIEndpoints.SEARCH_USERS}`)
+      .get(APIEndpoints.SEARCH_USERS)
       .query({search_name})
       .end((error, res) => {
         if (!error && res.status === 200) {
@@ -41,10 +41,11 @@ export default {
       })
     })
   },
+  
   createFriendships(to_user_id) {
     return new Promise((resolve, reject) => {
       request
-      .post(`${APIEndpoints.CREATE_FRIENDSHIPS}`)
+      .post(APIEndpoints.CREATE_FRIENDSHIPS)
       .set('X-CSRF-Token', CSRFToken())
       .send({
         to_user_id,
@@ -64,7 +65,7 @@ export default {
   deleteFriendships(userId) {
     return new Promise((resolve, reject) => {
       request
-      .delete(`${APIEndpoints.DELETE_FRIENDSHIPS + userId}`)
+      .delete(APIEndpoints.DELETE_FRIENDSHIPS + userId)
       .set('X-CSRF-Token', CSRFToken())
       .send({
         to_user_id: userId,
