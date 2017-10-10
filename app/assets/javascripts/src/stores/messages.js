@@ -58,7 +58,6 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
         const messages = CurrentUserStore.getCurrentUser().messages
         const currentUserId = CurrentUserStore.getCurrentUser().id
         messages.push({
-          id: Math.floor(Math.random() * 1000000),
           image: payload.action.image,
           to_user_id: payload.action.to_user_id,
           user_id: currentUserId,
