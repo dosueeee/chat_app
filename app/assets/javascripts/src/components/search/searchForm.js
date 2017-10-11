@@ -36,7 +36,7 @@ class searchForm extends React.Component {
             placeholder='ユーザー名で検索しよう'
           />
         </form>
-        <UserList {...this.state} />
+        <UserList />
       </div>
     )
   }

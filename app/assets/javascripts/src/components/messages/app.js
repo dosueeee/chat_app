@@ -20,7 +20,6 @@ class App extends React.Component {
 
   getStateFromStores() {
     const openChatId = MessagesStore.getOpenChatUserId()
-    // const currentUser = CurrentUserStore.getCurrentUser()
     const currentUser = UserStore.getCurrentUser()
     const users = MessagesStore.getUserMessages()
     if (!currentUser) return {}
@@ -50,9 +49,10 @@ class App extends React.Component {
   }
 
   render() {
+    const {currentUser} = this.state
     return (
       <div className='app'>
-        <UserList />
+        <UserList {...this.state} />
         <MessagesBox {...this.state}/>
       </div>
       )

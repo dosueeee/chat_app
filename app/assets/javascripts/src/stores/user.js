@@ -21,6 +21,15 @@ class UserStore extends BaseStore {
   setCurrentUser(obj) {
     this.set('currentUser', obj)
   }
+
+  getSearchUsers() {
+    if (!this.get('users')) this.setSearchUsers([])
+    return this.get('users')
+  }
+
+  setSearchUsers(json) {
+    this.set('users', json)
+  }
 }
 
 const User = new UserStore()
@@ -30,23 +39,23 @@ User.dispatchToken = Dispatcher.register(payload => {
 
   switch (action.type) {
     case ActionTypes.LOAD_USERS:
-      User.setUsers(payload.action.json)
+      User.setUsers(action.json)
       User.emitChange()
       break
 
     case ActionTypes.SEARCH_USERS:
-      var hoge = action.json
-      User.setUsers(hoge)
+      var user = action.json
+      User.setUsers(user)
       User.emitChange()
       break
 
     case ActionTypes.DELETE_FRIENDSHIPS:
-      User.setUsers(payload.action.json.user)
+      User.setUsers(action.json.user)
       User.emitChange()
       break
 
     case ActionTypes.LOAD_CURRENT_USER:
-      User.setCurrentUser(payload.action.json)
+      User.setCurrentUser(action.json)
       User.emitChange()
       break
   }
