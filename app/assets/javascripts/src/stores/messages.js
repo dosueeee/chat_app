@@ -37,17 +37,8 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
   switch (action.type) {
     case ActionTypes.SEND_MESSAGE:
       {
-        // const messages = CurrentUserStore.getCurrentUser().messages
         const userMessages = MessagesStore.getUserMessages()
         const currentUserMessages = userMessages.messages
-        // const currentUserId = CurrentUserStore.getCurrentUser().id
-        // const currentUserId = MessagesStore.getUserMessages().id
-        // currentUserMessages.push({
-        //   id: Math.floor(Math.random() * 1000000),
-        //   contents: payload.action.contents,
-        //   to_user_id: payload.action.to_user_id,
-        //   user_id: currentUserId,
-        // })
         currentUserMessages.push(
           action.json.message,
         ) 
