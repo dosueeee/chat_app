@@ -27,22 +27,30 @@ class MessageStore extends BaseStore {
   setUserMessages(obj) {
     this.set('userMessages', obj)
   }
+
 }
 
 const MessagesStore = new MessageStore()
 
 MessagesStore.dispatchToken = Dispatcher.register(payload => {
-  const action = payload.action
+  const {action} = payload
   switch (action.type) {
     case ActionTypes.SEND_MESSAGE:
       {
-        const messages = CurrentUserStore.getCurrentUser().messages
-        const currentUserId = CurrentUserStore.getCurrentUser().id
-        messages.push({
-          contents: payload.action.contents,
-          to_user_id: payload.action.to_user_id,
-          user_id: currentUserId,
-        })
+        // const messages = CurrentUserStore.getCurrentUser().messages
+        const userMessages = MessagesStore.getUserMessages()
+        const currentUserMessages = userMessages.messages
+        // const currentUserId = CurrentUserStore.getCurrentUser().id
+        // const currentUserId = MessagesStore.getUserMessages().id
+        // currentUserMessages.push({
+        //   id: Math.floor(Math.random() * 1000000),
+        //   contents: payload.action.contents,
+        //   to_user_id: payload.action.to_user_id,
+        //   user_id: currentUserId,
+        // })
+        currentUserMessages.push(
+          action.json.message,
+        ) 
       }
       MessagesStore.emitChange()
       break
@@ -55,13 +63,11 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
 
     case ActionTypes.SAVE_IMAGE_CHAT:
       {
-        const messages = CurrentUserStore.getCurrentUser().messages
-        const currentUserId = CurrentUserStore.getCurrentUser().id
-        messages.push({
-          image: payload.action.image,
-          to_user_id: payload.action.to_user_id,
-          user_id: currentUserId,
-        })
+        const userMessages = MessagesStore.getUserMessages()
+        const currentUserMessages = userMessages.messages
+        currentUserMessages.push(
+          action.json.message,
+        )
       }
       MessagesStore.emitChange()
       break

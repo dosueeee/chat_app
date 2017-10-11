@@ -31,12 +31,12 @@ class MessagesBox extends React.Component {
     })
 
     return (
-        <div className='message-box'>
-          <ul className='message-box__list'>
-            {userMessages}
-          </ul>
-          <ReplyBox />
-        </div>
+      <div className='message-box'>
+        <ul className='message-box__list'>
+          {userMessages}
+        </ul>
+        <ReplyBox />
+      </div>
       )
   }
 }

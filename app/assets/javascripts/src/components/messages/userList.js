@@ -5,7 +5,6 @@ import MessagesStore from '../../stores/messages'
 import UserStore from '../../stores/user'
 import MessagesAction from '../../actions/messages'
 import CurrentUserAction from '../../actions/currentUser'
-import CurrentUserStore from '../../stores/currentUser'
 import UserAction from '../../actions/user'
 
 class UserList extends React.Component {
@@ -21,13 +20,9 @@ class UserList extends React.Component {
   }
 
   getStateFromStores() {
-    const currentUser = CurrentUserStore.getCurrentUser()
-    if (!currentUser) return {}
-    const currentUserId = currentUser.id
     return {
       users: UserStore.getUsers(),
       openChatId: MessagesStore.getOpenChatUserId(),
-      currentUser,
     }
   }
 
@@ -39,7 +34,6 @@ class UserList extends React.Component {
   componentWillMount() {
     MessagesStore.onChange(this.onStoreChange.bind(this))
     UserStore.onChange(this.onStoreChange.bind(this))
-    CurrentUserStore.onChange(this.onChangeHandler)
   }
 
   onStoreChange() {

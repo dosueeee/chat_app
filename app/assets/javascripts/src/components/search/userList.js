@@ -21,7 +21,7 @@ class UserList extends React.Component {
 
   getStateFromStore() {
     return {
-      users: UserStore.getUsers(),
+      users: UserStore.getSearchUsers(),
     }
   }
 

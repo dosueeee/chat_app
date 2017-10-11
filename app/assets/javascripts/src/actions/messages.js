@@ -26,6 +26,7 @@ export default {
             type: ActionTypes.SEND_MESSAGE,
             contents,
             to_user_id,
+            user_id : json.message.user_id,
             json,
           })
           resolve(json)

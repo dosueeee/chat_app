@@ -4,6 +4,7 @@ import MessagesStore from '../../stores/messages'
 import UserList from './userList'
 import MessagesBox from './messagesBox'
 import CurrentUserStore from '../../stores/currentUser'
+import UserStore from '../../stores/user'
 
 class App extends React.Component {
 
@@ -19,7 +20,7 @@ class App extends React.Component {
 
   getStateFromStores() {
     const openChatId = MessagesStore.getOpenChatUserId()
-    const currentUser = CurrentUserStore.getCurrentUser()
+    const currentUser = UserStore.getCurrentUser()
     const users = MessagesStore.getUserMessages()
     if (!currentUser) return {}
     const currentUserMessages = currentUser.messages ? currentUser.messages : []
@@ -48,9 +49,10 @@ class App extends React.Component {
   }
 
   render() {
+    const {currentUser} = this.state
     return (
       <div className='app'>
-        <UserList />
+        <UserList {...this.state} />
         <MessagesBox {...this.state}/>
       </div>
       )
