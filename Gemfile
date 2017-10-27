@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
-
 gem 'rails'
-gem 'sqlite3'
+gem 'sqlite3', group: :development
+# 本番ではpostgressを使用する
+gem 'pg', group: :production
 gem 'haml-rails'
 gem 'erb2haml'
 gem "browserify-rails"
